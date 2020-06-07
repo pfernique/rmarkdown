@@ -273,7 +273,11 @@ escape_regex_metas <- function(in_str) {
 }
 
 latexmk <- function(file, engine, biblatex = FALSE) {
-  tinytex::latexmk(file, engine, if (biblatex) 'biber' else 'bibtex')
+  if (engine == 'tectonic') {
+    system("tectonic", file)
+  } else {
+    tinytex::latexmk(file, engine, if (biblatex) 'biber' else 'bibtex')
+  }
 }
 
 n_bytes <- function(string) {
