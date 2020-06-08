@@ -274,7 +274,8 @@ escape_regex_metas <- function(in_str) {
 
 latexmk <- function(file, engine, biblatex = FALSE) {
   if (engine == 'tectonic' && !biblatex) {
-    system(paste("tectonic", file))
+    tectonic <- find_latex_engine("tectonic")
+    stopifnot(system(paste(tectonic, file)) == 0)
   } else {
     tinytex::latexmk(file, engine, if (biblatex) 'biber' else 'bibtex')
   }
